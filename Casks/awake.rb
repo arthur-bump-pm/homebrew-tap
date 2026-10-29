@@ -4,7 +4,7 @@ cask "awake" do
 
   url "https://github.com/arthur-bump-pm/awake-mac/releases/download/v#{version}/Awake-#{version}.zip"
   name "Awake"
-  desc "Menu bar app that keeps your Mac running and online away from your desk"
+  desc "Keeps your laptop running and online when you close the lid or move"
   homepage "https://github.com/arthur-bump-pm/awake-mac"
 
   livecheck do
@@ -12,14 +12,15 @@ cask "awake" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "Awake.app"
   binary "#{appdir}/Awake.app/Contents/MacOS/awakectl"
 
   # Awake isn't notarized: clear the download flag so the first open doesn't stop at Gatekeeper.
-  postflight do
-    system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{appdir}/Awake.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/Awake.app"],
+                          writable_paths: ["Awake.app"], writable_base: :appdir, must_succeed: false
   end
 
   uninstall quit: "io.github.arthur-bump-pm.Awake"
