@@ -1,6 +1,6 @@
 cask "awake" do
-  version "1.0.0"
-  sha256 "ed4052a49bb0236c31b2c3b134bcbdfe6aefa9721ad7320546063ecde61c273c"
+  version "1.0.1"
+  sha256 "93edd5d0a5bafa25deec9431458ffcf593b2592d7aef6506b128f2cd2adaa345"
 
   url "https://github.com/arthur-bump-pm/awake-mac/releases/download/v#{version}/Awake-#{version}.zip"
   name "Awake"
